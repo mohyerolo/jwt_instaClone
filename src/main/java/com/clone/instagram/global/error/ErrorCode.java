@@ -12,7 +12,7 @@ public enum ErrorCode {
 
     ACCEPTABLE_BUT_EXISTS(202, "EXISTS", "EXISTS");
 
-    private int status;
-    private String errorType;
-    private String message;
+    private final int status;
+    private final String errorType;
+    private final String message;
 }

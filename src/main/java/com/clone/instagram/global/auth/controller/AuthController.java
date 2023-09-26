@@ -13,9 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 //@RestController
+// jsp 사용은 RestController로 안 되고 Controller로만 반환 가능
 @Controller
 @RequestMapping("/auth")
 @RequiredArgsConstructor

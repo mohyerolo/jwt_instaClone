@@ -24,7 +24,6 @@ import java.util.stream.Stream;
 public class JwtFilter extends OncePerRequestFilter {
 
     private final JwtProvider jwtProvider;
-    private final RedisTemplate<String, Object> redisTemplate;
 
     private static final String[] SHOULD_NOT_FILTER_URI_LIST = new String[]{
             "/",
