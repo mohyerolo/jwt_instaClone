@@ -1,5 +1,6 @@
 package com.clone.instagram.domain.user.dto;
 
+import com.clone.instagram.domain.user.entity.User;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
@@ -27,12 +28,12 @@ public class UserDto {
     private boolean nonPublic;
 
     @Builder
-    public UserDto(Long id, String userName, String email, String profileImgUrl, String description, boolean nonPublic) {
-        this.id = id;
-        this.userName = userName;
-        this.email = email;
-        this.profileImgUrl = profileImgUrl;
-        this.description = description;
-        this.nonPublic = nonPublic;
+    public UserDto(User user) {
+        this.id = user.getId();
+        this.userName = user.getUsername();
+        this.email = user.getEmail();
+        this.profileImgUrl = user.getProfileImgUrl();
+        this.description = user.getDescription();
+        this.nonPublic = user.isNonPublic();
     }
 }
