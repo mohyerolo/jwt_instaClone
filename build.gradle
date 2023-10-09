@@ -37,12 +37,14 @@ dependencies {
 	implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
-	// jsp
-	implementation 'jakarta.servlet:jakarta.servlet-api' //스프링부트 3.0 이상
-	implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api' //스프링부트 3.0 이상
-	implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl' //스프링부트 3.0 이상
-	implementation "org.apache.tomcat.embed:tomcat-embed-jasper"
-	implementation "org.springframework.security:spring-security-taglibs"
+//	// jsp
+//	implementation 'jakarta.servlet:jakarta.servlet-api' //스프링부트 3.0 이상
+//	implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api' //스프링부트 3.0 이상
+//	implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl' //스프링부트 3.0 이상
+//	implementation "org.apache.tomcat.embed:tomcat-embed-jasper"
+//	implementation "org.springframework.security:spring-security-taglibs"
+
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
