@@ -33,6 +33,9 @@ public class User implements UserDetails {
     @NotNull
     private String password;
 
+    @NotNull
+    private String name;
+
     private String profileImgUrl;
 
     @Column(columnDefinition = "TEXT", length = 100)
@@ -46,10 +49,11 @@ public class User implements UserDetails {
     private List<String> roles;
 
     @Builder
-    public User(String userName, String email, String password, String profileImgUrl, String description, boolean nonPublic) {
+    public User(String userName, String email, String password, String name, String profileImgUrl, String description, boolean nonPublic) {
         this.userName = userName;
         this.email = email;
         this.password = password;
+        this.name = name;
         this.profileImgUrl = profileImgUrl;
         this.description = "";
         this.nonPublic = false;
