@@ -28,10 +28,6 @@ public class JwtFilter extends OncePerRequestFilter {
     private static final String[] SHOULD_NOT_FILTER_URI_LIST = new String[]{
             "/",
             "/auth/**",
-            "/WEB-INF/views/**",
-            "/css/**",
-            "/images/**",
-            "/favicon.ico"
     };
 
     @Override
