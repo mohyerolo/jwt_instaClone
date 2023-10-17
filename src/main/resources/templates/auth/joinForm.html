@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <link rel="shortcut icon" href="/images/insta.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photogram</title>
+    <link rel="stylesheet" href="/css/layout.css" type="text/css" />
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" type="text/css" />
+</head>
+<body>
+<div class="container">
+    <main class="loginMain">
+        <!--회원가입섹션-->
+        <section class="login">
+            <article class="login__form__container">
+
+                <!--회원가입 폼-->
+                <div class="login__form">
+                    <!--로고-->
+                    <h1><img src="/images/instagram-logo.png" alt=""></h1>
+                    <!--로고end-->
+
+                    <!--회원가입 인풋-->
+                    <form class="login__input" th:action="@{/auth/sign-up}" th:object="${signUpDto}" method="post">
+                        <input type="text" th:field="*{userName}" placeholder="유저네임" required="required" th:errorclass="field_error"/>
+                        <span class="field_error field_error_text" th:errors="*{userName}">이미 존재하는 유저네임입니다.</span>
+
+                        <input type="password" th:field="*{password}" placeholder="패스워드" required="required" />
+
+                        <input type="email" th:field="*{email}" placeholder="이메일" required="required" th:errorclass="field_error" />
+                        <span class="field_error field_error_text" th:errors="*{email}">이미 존재하는 이메일입니다.</span>
+
+                        <input type="text" th:field="*{name}" placeholder="이름" required="required" />
+                        <button>가입</button>
+                    </form>
+                    <!--회원가입 인풋end-->
+                </div>
+                <!--회원가입 폼end-->
+
+                <!--계정이 있으신가요?-->
+                <div class="login__register">
+                    <span>계정이 있으신가요?</span>
+                    <a th:href="@{/auth/loginForm}">로그인</a>
+                </div>
+                <!--계정이 있으신가요?end-->
+
+            </article>
+        </section>
+    </main>
+</div>
+</body>
+</html>
