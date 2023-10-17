@@ -8,7 +8,6 @@ import com.clone.instagram.global.auth.dto.SignUpDto;
 import com.clone.instagram.global.auth.dto.TokenDto;
 import com.clone.instagram.global.auth.jwt.JwtCode;
 import com.clone.instagram.global.auth.jwt.JwtProvider;
-import com.clone.instagram.global.auth.repository.AccessTokenRepository;
 import com.clone.instagram.global.auth.repository.RefreshTokenRepository;
 import com.clone.instagram.global.error.ErrorCode;
 import com.clone.instagram.global.error.exception.CustomException;
@@ -32,7 +31,6 @@ public class AuthServiceImpl implements AuthService {
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final JwtProvider jwtProvider;
     private final RefreshTokenRepository refreshTokenRepository;
-    private final AccessTokenRepository accessTokenRepository;
 
     @Override
     @Transactional
@@ -45,6 +43,7 @@ public class AuthServiceImpl implements AuthService {
                 .userName(dto.getUserName())
                 .email(dto.getEmail())
                 .password(passwordEncoder.encode(dto.getPassword()))
+                .name(dto.getName())
                 .build();
         userRepository.save(user);
     }
