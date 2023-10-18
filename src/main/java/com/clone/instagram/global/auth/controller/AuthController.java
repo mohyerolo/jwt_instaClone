@@ -28,7 +28,6 @@ public class AuthController {
 
     @GetMapping("/loginForm")
     public String loginForm() {
-
         return "auth/loginForm";
     }
 

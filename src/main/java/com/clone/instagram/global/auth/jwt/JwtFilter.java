@@ -30,9 +30,19 @@ public class JwtFilter extends OncePerRequestFilter {
             "/auth/**",
     };
 
+    private static final String[] SHOULD_NOT_FILTER_GET_URL_LIST = new String[] {
+//            "/users/profile"
+    };
+
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
-        return Arrays.stream(SHOULD_NOT_FILTER_URI_LIST).anyMatch(e -> new AntPathMatcher().match(e, request.getServletPath()));
+        if (Arrays.stream(SHOULD_NOT_FILTER_URI_LIST).anyMatch(e -> new AntPathMatcher().match(e, request.getServletPath()))) {
+            return true;
+        } else if (request.getMethod().equals("GET")) {
+            return Arrays.stream(SHOULD_NOT_FILTER_GET_URL_LIST)
+                    .anyMatch(e -> new AntPathMatcher().match(e, request.getServletPath()));
+        }
+        return false;
     }
 
     @Override
