@@ -1,27 +1,32 @@
 package com.clone.instagram.domain.user.service;
 
-import com.clone.instagram.domain.user.dto.UserDto;
+import com.clone.instagram.domain.user.dto.UserProfileDto;
 import com.clone.instagram.domain.user.entity.User;
 import com.clone.instagram.domain.user.repository.UserRepository;
 import com.clone.instagram.global.error.ErrorCode;
 import com.clone.instagram.global.error.exception.CustomException;
-import com.clone.instagram.global.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
+
     private final UserRepository userRepository;
 
     @Override
-    @Transactional
-    public UserDto getUserInfo() {
-        User user = userRepository.findByUserName(SecurityUtil.getUserName())
-                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_ERROR, "사용자를 찾을 수 없습니다."));
-        return UserDto.builder()
-                .user(user)
+    @Transactional(readOnly = true)
+    public UserProfileDto getUserProfileDto(String targetUserName, String currentUserName) {
+        User target = userRepository.findByUserName(targetUserName).orElseThrow(() ->
+                new CustomException(ErrorCode.NOT_FOUND_ERROR, "존재하지 않는 사용자입니다."));
+
+        boolean loginUser = StringUtils.hasText(currentUserName) && targetUserName.equals(currentUserName);
+
+        return  UserProfileDto.builder()
+                .user(target)
+                .loginUser(loginUser)
                 .build();
     }
 }

@@ -1,7 +1,7 @@
 package com.clone.instagram.domain.user.service;
 
-import com.clone.instagram.domain.user.dto.UserDto;
+import com.clone.instagram.domain.user.dto.UserProfileDto;
 
 public interface UserService {
-    UserDto getUserInfo();
+    UserProfileDto getUserProfileDto(String targetUserName, String currentUserName);
 }

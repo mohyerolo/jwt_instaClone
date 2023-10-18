@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="/images/insta.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>프로필</title>
+    <link rel="stylesheet" href="/css/profile.css" type="text/css" />
+</head>
+<body>
+    <main class="profile_main">
+        <section class="profile">
+            <div class="profile-left">
+                <div class="profile-img-wrap story-border">
+                    <form id="userProfileImageForm">
+                        <input type="file" name="profileImageFile" style="display:none;" id="userProfileImageInput" />
+                    </form>
+                    <img class="profile-image" th:src="@{${'/profile_imgs/' + userProfileDto.user.profileImgUrl}}" onerror="this.src='/images/default_profile.png';" />
+                </div>
+            </div>
+            <div class="profile-right" th:object="${userProfileDto}">
+                <div class="name-group">
+                    <h2 th:text="*{user.userName}"></h2>
+                    <button class="cta" th:if="!*{loginUser} and !*{follow}" th:onclick="|toggleSubscribe(*{user.id}, this)|">팔로우</button>
+                    <button class="cta" th:if="!*{loginUser} and *{follow}" th:onclick="|toggleSubscribe(*{user.id}, this)|">언팔로우</button>
+                    <button class="modi" th:if="*{loginUser}" onclick="popup('.modal-info')">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                </div>
+
+                <div class="subscribe">
+                    <ul>
+                        <li>게시물 <span th:text="*{postCount}" ></span></li>
+                        <li><a class="follow" th:onclick="|followerInfoModalOpen(*{user.id})|" style="text-decoration:none">팔로워 </a><span th:text="*{userFollowerCount}" ></span>
+                        <li><a class="follow" th:onclick="|followingInfoModalOpen(*{user.id})|" style="text-decoration:none">팔로잉 </a><span th:text="*{userFollowingCount}" ></span>
+                    </ul>
+                </div>
+                <div class="state">
+                    <h4 th:text="*{user.description}"></h4>
+                </div>
+            </div>
+        </section>
+        <hr>
+        <!--게시물 섹션-->
+        <section id="tab-content" th:object="${userProfileDto}">
+            <div class="profileContainer">
+                <div id="tab-1-content" class="tab-content-item show">
+                    <!--게시물컨 그리드배열-->
+                    <div class="tab-1-content-inner" id="img-box" >
+                        <!--아이템들-->
+                        <div class="img-box" th:each="post : *{user.postList}" th:onclick="|postPopup(${post.id}, '.modal-post')|">
+                            <img th:src="@{${'/upload/' + post.postImgUrl}}" />
+                            <div class="comment">
+                                <a> <i class="fas fa-heart"></i><span th:text="${post.likesCount}"></span></a>
+                            </div>
+                        </div>
+                        <!--아이템들end-->
+                    </div>
+                </div>
+            </div>
+            <!--                        <div class="empty_post" th:if="${not #strings.isEmpty(*{user.postList)}}">-->
+            <div class="empty_post" th:if="*{user.postList} == null">
+                <th:block  th:if="this.id == *{user.id}">
+                    <div>
+                        <p style="font-weight:bold; font-size:18px; margin:0px 0px 10px 0px;">친구들과의 소중한 순간을 남겨보세요</p>
+                        <a href="/post/postForm" style="text-decoration: none;">첫 게시물을 만들어보세요</a>
+                    </div>
+                </th:block>
+                <p th:if="this.id != *{user.id}" style="font-weight:bold; font-size:18px; margin:0px 0px 10px 0px;">게시물이 없습니다.</p>
+        </section>
+        <!--로그아웃, 회원정보변경 모달-->
+        <div class="modal-info">
+            <div class="modal">
+                <button onclick="location.href='/user/update'">회원정보 변경</button>
+                <button onclick="location.href='/logout'">로그아웃</button>
+                <button onclick="closePopup('.modal-info')">취소</button>
+            </div>
+        </div>
+        <!--로그아웃, 회원정보변경 모달 end-->
+
+        <!--포스트 상세 정보 모달-->
+        <div class="modal-post">
+            <div class="subscribe">
+                <div class="subscribe-list" id="postInfoModal"></div>
+            </div>
+        </div>
+        <!--포스트 상세 정보 모달 end-->
+
+        <!--프로필사진 바꾸기 모달-->
+        <div class="modal-image" >
+            <div class="modal">
+                <p>프로필 사진 바꾸기</p>
+                <button >사진 업로드</button>
+                <button >취소</button>
+            </div>
+        </div>
+        <!--프로필사진 바꾸기 모달end-->
+
+        <div class="modal-follower">
+            <div class="subscribe">
+                <div class="subscribe-header">
+                    <span>팔로워</span>
+                    <button class="exit" onclick="modalClose()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="subscribe-list" id="followerModalList"></div>
+            </div>
+        </div>
+
+        <div class="modal-following">
+            <div class="subscribe">
+                <div class="subscribe-header">
+                    <span>팔로잉</span>
+                    <button class="exit" onclick="modalClose()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="subscribe-list" id="followingModalList"></div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
