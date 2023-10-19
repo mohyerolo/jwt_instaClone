@@ -10,7 +10,7 @@
 .profile_main {
     width: 960px;
     margin: 0 auto;
-    padding-top: 50px;
+    padding-top: 55px;
     padding-bottom: 40px;
 }
 
@@ -18,7 +18,8 @@
 .profile {
     /*height: 300px;*/
     display: flex;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    padding-top: 30px;
     /*margin: 54px 0 44px;*/
 }
 .profile > .profileContainer {
@@ -40,7 +41,7 @@
 .profile .profile-left {
     width: 162px;
     /*height: 200px;*/
-    margin-top: 30px;
+    /*margin-top: 30px;*/
     border-radius: 50%;
     position: relative;
     align-content: center;
@@ -67,6 +68,7 @@
 .profile .profile-right .name-group {
     display: flex;
     margin-bottom: 20px;
+    align-items: center;
 }
 .profile .profile-right .name-group h2 {
     font-weight: normal;

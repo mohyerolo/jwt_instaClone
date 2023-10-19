@@ -1,15 +1,10 @@
 <!DOCTYPE html>
 <html lang="ko"
-      xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <link rel="shortcut icon" href="/images/insta.png">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>프로필</title>
-    <link rel="stylesheet" href="/css/profile.css" type="text/css" />
-</head>
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout/common :: head('프로필')"></head>
 <body>
+    <head th:replace="layout/common :: menu('menu')"></head>
     <main class="profile_main">
         <section class="profile">
             <div class="profile-left">
@@ -69,8 +64,12 @@
                     </div>
                 </th:block>
                 <p th:if="this.id != *{user.id}" style="font-weight:bold; font-size:18px; margin:0px 0px 10px 0px;">게시물이 없습니다.</p>
+            </div>
         </section>
         <!--로그아웃, 회원정보변경 모달-->
+        <div>
+            <p>sdfsdf</p>
+        </div>
         <div class="modal-info">
             <div class="modal">
                 <button onclick="location.href='/user/update'">회원정보 변경</button>
@@ -122,5 +121,6 @@
             </div>
         </div>
     </main>
+    <script src="/js/profile.js"></script>
 </body>
 </html>
