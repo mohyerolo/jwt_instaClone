@@ -18,11 +18,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(readOnly = true)
-    public UserProfileDto getUserProfileDto(String targetUserName, String currentUserName) {
-        User target = userRepository.findByUserName(targetUserName).orElseThrow(() ->
+    public UserProfileDto getUserProfileDto(Long targetUserId, Long currentUserId) {
+        User target = userRepository.findById(targetUserId).orElseThrow(() ->
                 new CustomException(ErrorCode.NOT_FOUND_ERROR, "존재하지 않는 사용자입니다."));
 
-        boolean loginUser = StringUtils.hasText(currentUserName) && targetUserName.equals(currentUserName);
+        boolean loginUser = targetUserId.equals(currentUserId);
 
         return  UserProfileDto.builder()
                 .user(target)

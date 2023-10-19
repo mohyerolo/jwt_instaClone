@@ -18,13 +18,12 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/profile")
-    public ModelAndView profile(@RequestParam String userName, @AuthenticationPrincipal() CustomUserDetails customUserDetails) {
-        String currentUserName = customUserDetails != null ? customUserDetails.getUsername() : null;
-        UserProfileDto userProfileDto = userService.getUserProfileDto(userName, currentUserName);
-//        model.addAttribute("userProfileDto", userProfileDto);
+    public ModelAndView profile(@RequestParam Long id, @AuthenticationPrincipal() CustomUserDetails customUserDetails) {
+        Long currentUserId = customUserDetails != null ? customUserDetails.getUser().getId() : null;
+        UserProfileDto userProfileDto = userService.getUserProfileDto(id, currentUserId);
+
         ModelAndView mav = new ModelAndView("user/profile");
         mav.addObject("userProfileDto", userProfileDto);
-//        return "user/profile";
         return mav;
     }
 }
