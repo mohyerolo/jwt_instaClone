@@ -44,6 +44,7 @@ public class AuthServiceImpl implements AuthService {
                 .email(dto.getEmail())
                 .password(passwordEncoder.encode(dto.getPassword()))
                 .name(dto.getName())
+                .profileImgUrl("default_profile.png")
                 .build();
         userRepository.save(user);
     }
