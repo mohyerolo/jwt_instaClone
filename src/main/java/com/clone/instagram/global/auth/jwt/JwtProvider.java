@@ -35,7 +35,7 @@ public class JwtProvider {
     private String secretKey;
     private Key key;
 
-    private static final long ACCESS_TOKEN_EXPIRE_TIME = 60 * 60 * 1000L;
+    private static final long ACCESS_TOKEN_EXPIRE_TIME = 60 * 60 * 60 * 1000L;
     private static final long REFRESH_TOKEN_EXPIRE_TIME = 2 * 60 * 60 * 1000L;
 
     private final RefreshTokenRepository refreshTokenRepository;
