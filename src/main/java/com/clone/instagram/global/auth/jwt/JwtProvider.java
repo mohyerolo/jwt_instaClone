@@ -1,5 +1,6 @@
 package com.clone.instagram.global.auth.jwt;
 
+import com.clone.instagram.domain.user.dto.CustomUserDetails;
 import com.clone.instagram.global.auth.dto.AccessTokenDto;
 import com.clone.instagram.global.auth.dto.RefreshTokenDto;
 import com.clone.instagram.global.auth.repository.AccessTokenRepository;
@@ -14,16 +15,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Key;
-import java.util.Arrays;
 import java.util.Base64;
-import java.util.Collection;
 import java.util.Date;
 import java.util.stream.Collectors;
 
@@ -40,6 +36,7 @@ public class JwtProvider {
 
     private final RefreshTokenRepository refreshTokenRepository;
     private final AccessTokenRepository accessTokenRepository;
+    private final CustomUserDetailService customUserDetailService;
 
     @PostConstruct
     protected  void init() {
@@ -94,12 +91,9 @@ public class JwtProvider {
         Claims claims = Jwts.parserBuilder().setSigningKey(key).build()
                 .parseClaimsJws(token)
                 .getBody();
-        Collection<? extends GrantedAuthority> authorities =
-                Arrays.stream(claims.get("AUTHORITIES").toString().split(","))
-                        .map(SimpleGrantedAuthority::new)
-                        .toList();
-        UserDetails principal = new User(claims.getSubject(), "", authorities);
-        return new UsernamePasswordAuthenticationToken(principal, "", authorities);
+        CustomUserDetails customUserDetails = customUserDetailService.loadUserByUsername(claims.getSubject());
+
+        return new UsernamePasswordAuthenticationToken(customUserDetails, "", customUserDetails.getAuthorities());
     }
 
     public String getRefreshToken(String userName) {
