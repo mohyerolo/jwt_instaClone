@@ -18,7 +18,7 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/profile")
-    public ModelAndView profile(@RequestParam Long id, @AuthenticationPrincipal() CustomUserDetails customUserDetails) {
+    public ModelAndView profile(@RequestParam Long id, @AuthenticationPrincipal CustomUserDetails customUserDetails) {
         Long currentUserId = customUserDetails != null ? customUserDetails.getUser().getId() : null;
         UserProfileDto userProfileDto = userService.getUserProfileDto(id, currentUserId);
 
