@@ -1,25 +1,42 @@
+function logout() {
+    console.log("logout 버튼 클릭");
+    $.ajax({
+        type: "put",
+        url: "/auth/logout"
+    }).done(res => {
+        replaceToLoginForm();
+    });
+}
+
+function replaceToLoginForm() {
+    console.log("repalces~");
+    $.ajax({
+        type: "get",
+        url: "/auth/loginForm"
+    });
+}
 // 팔로우 / 언팔로우 동작
 function toggleSubscribe(targetUserId, obj) {
     if ($(obj).text() == "언팔로우") {
         $.ajax({
             type: "delete",
-            url: "/follow/" + targetUserId;
+            url: "/follow/" + targetUserId
         }).done(res => {
             $(obj).text("팔로우");
             $(obj).toggleClass("blue");
         }).fail(error => {
-            console.log("언팔로우 실패"), error);
-        })
+            console.log("언팔로우 실패", error);
+        });
     } else {
         $.ajax({
             type: "post",
-            url: "/follow/" + targetUserId;
+            url: "/follow/" + targetUserId
         }).done(res => {
             $(obj).text("언팔로우");
             $(obj).toggleClass("blue");
         }).fail(error => {
-            console.log("팔로우 실패"), error);
-        })
+            console.log("팔로우 실패", error);
+        });
     }
 }
 
