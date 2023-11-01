@@ -51,7 +51,7 @@ public class JwtFilter extends OncePerRequestFilter {
         String token = resolveToken(request);
         Authentication authentication = null;
         try {
-            if (StringUtils.hasText(token)) {
+            if (StringUtils.hasText(token) && !token.equals("null")) {
                 // 사용 가능한 토큰인지 검증
                 JwtCode jwtCode = jwtProvider.validateToken(token);
                 if (jwtCode.equals(JwtCode.ACCESS) && !jwtProvider.isLogout(token)) {
