@@ -55,7 +55,6 @@
                     </div>
                 </div>
             </div>
-            <!--                        <div class="empty_post" th:if="${not #strings.isEmpty(*{user.postList)}}">-->
             <div class="empty_post" th:if="*{user.postList} == null">
                 <th:block  th:if="this.id == *{user.id}">
                     <div>
@@ -67,13 +66,10 @@
             </div>
         </section>
         <!--로그아웃, 회원정보변경 모달-->
-        <div>
-            <p>sdfsdf</p>
-        </div>
         <div class="modal-info">
             <div class="modal">
-                <button onclick="location.href='/user/update'">회원정보 변경</button>
-                <button onclick="location.href='/logout'">로그아웃</button>
+                <button onclick="location.href='/users/updateForm'">회원정보 변경</button>
+                <button onclick="logout()">로그아웃</button>
                 <button onclick="closePopup('.modal-info')">취소</button>
             </div>
         </div>
@@ -121,6 +117,9 @@
             </div>
         </div>
     </main>
+<!--    <script th:inline="javascript">-->
+<!--        let principalId = [[-->
+<!--    </script>-->
     <script src="/js/profile.js"></script>
 </body>
 </html>
